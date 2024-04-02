@@ -1,0 +1,13 @@
+LICENSE.txt
+README.rst
+setup.py
+src/my_package/__init__.py
+src/my_package/module.py
+src/my_package.egg-info/PKG-INFO
+src/my_package.egg-info/SOURCES.txt
+src/my_package.egg-info/dependency_links.txt
+src/my_package.egg-info/top_level.txt
+src/my_package/64bit/__init__.py
+src/my_package/64bit/encodage_64.py
+src/my_package/HTML/__init__.py
+src/my_package/HTML/encodage_html.py

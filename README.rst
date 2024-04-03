@@ -10,14 +10,14 @@ Telecharge le fichier "bibli_adam_64bit_html-0.0.1.tar.gz" dans le dossier "dist
 
 ## Usage
 
-Dans le terminal lance la ligne : <br />
-pip install -i https://test.pypi.org/simple/ bibli-adam-64bit-html==0.0.4
+Dans le terminal lance la ligne :  
+pip install -i https://test.pypi.org/simple/ bibli-adam-64bit-html==0.0.4  
 
-Ensuite rajoute en début de fichier : <br />
-import my_package <br />
-from my_package.module1 import encodage_64 <br />
-from my_package.module2 import encodage_html
+Ensuite rajoute en début de fichier :  
+import my_package  
+from my_package.module1 import encodage_64  
+from my_package.module2 import encodage_html  
 
-Et voilà tu peux utiliser les fonctions avec : <br />
+Et voilà tu peux utiliser les fonctions avec :  
 encodage_64.<nomdelafonction>(<parametre>)
 ---

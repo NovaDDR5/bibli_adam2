@@ -91,6 +91,7 @@ def decode_html_entities(text):
     '<p>Hello, World!</p>'
     '''
 
+    # Remplacement des entités HTML par leurs caractères spéciaux
     decoded_text = text.replace('&lt;', '<').replace('&gt;', '>').replace('&amp;', '&').replace('&quot;', '"').replace('&#39;', "'")
     return decoded_text
 

@@ -1,8 +1,8 @@
 from setuptools import *
 
 setup(
-    name='my_package',
-    version='0.0.1',
+    name='bibli_adam_64bit_html',
+    version='0.0.4',
     description="tentative de creation d'une librairie d'encodage 64bit et HTML utilisable avec pip",
     license='MIT',
     packages=find_packages(where="src"),

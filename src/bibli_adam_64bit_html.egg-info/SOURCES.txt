@@ -1,0 +1,12 @@
+LICENSE.txt
+README.rst
+setup.py
+src/bibli_adam_64bit_html.egg-info/PKG-INFO
+src/bibli_adam_64bit_html.egg-info/SOURCES.txt
+src/bibli_adam_64bit_html.egg-info/dependency_links.txt
+src/bibli_adam_64bit_html.egg-info/top_level.txt
+src/my_package/__init__.py
+src/my_package/module1/__init__.py
+src/my_package/module1/encodage_64.py
+src/my_package/module2/__init__.py
+src/my_package/module2/encodage_html.py

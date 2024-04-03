@@ -14,13 +14,11 @@ Fonctions disponibles :
 - url_safe_decode_base64(encoded_data) : Décode les données base64 encodées en 
   utilisant un alphabet modifié pour les URLs.
 
-Ce module est utile pour plusieurs cas d'utilisation, notamment l'envoi sécurisé de 
+Ce module est utile pour plusieurs cas, notamment l'envoi sécurisé de 
 données via des protocoles de communication, le stockage de données binaires dans 
 des formats de texte, etc.
 '''
 
-# Définition de l'alphabet base64
-base64_charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 
 
 def encode_base64(data):
@@ -53,6 +51,7 @@ def encode_base64(data):
     'SGVsbG8sIFdvcmxkIQ=='
     '''
 
+    base64_charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
     encoded = ""
     padding = ""
     # Conversion de chaque groupe de 3 bytes en base64
@@ -99,7 +98,8 @@ def decode_base64(encoded_data):
     >>> decode_base64('SGVsbG8sIFdvcmxkIQ==')
     b'Hello, World!'
     '''
-
+    
+    base64_charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
     decoded = bytearray()
     padding = encoded_data.count('=')
     # Conversion de chaque groupe de 4 caractères base64 en bytes
@@ -138,10 +138,11 @@ def url_safe_encode_base64(data):
     avoir à encoder les caractères spéciaux comme '/' ou '+'.
 
     Exemple :
-    >>> url_safe_encode_base64(b"Hello, World!")
-    'SGVsbG8sIFdvcmxkIQ=='
+    >>> url_safe_encode_base64(b"https://lamadone.forge.apps.education.fr/informatique/terminale-nsi/01seq01_POO.html#programmation-orientee-objet")
+    'aHR0cHM6Ly9sYW1hZG9uZS5mb3JnZS5hcHBzLmVkdWNhdGlvbi5mci9pbmZvcm1hdGlxdWUvdGVybWluYWxlLW5zaS8wMXNlcTAxX1BPTy5odG1sI3Byb2dyYW1tYXRpb24tb3JpZW50ZWUtb2JqZXQ='
     '''
 
+    base64_charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
     encoded = ""
     padding = ""
     # Conversion de chaque groupe de 3 bytes en base64
@@ -185,21 +186,30 @@ def url_safe_decode_base64(encoded_data):
     pour être utilisée dans une URL.
 
     Exemple :
-    >>> url_safe_decode_base64('SGVsbG8sIFdvcmxkIQ==')
-    b'Hello, World!'
+    >>> url_safe_decode_base64('aHR0cHM6Ly9sYW1hZG9uZS5mb3JnZS5hcHBzLmVkdWNhdGlvbi5mci9pbmZvcm1hdGlxdWUvdGVybWluYWxlLW5zaS8wMXNlcTAxX1BPTy5odG1sI3Byb2dyYW1tYXRpb24tb3JpZW50ZWUtb2JqZXQ=')
+    https://lamadone.forge.apps.education.fr/informatique/terminale-nsi/01seq01_POO.html#programmation-orientee-objet
     '''
 
-    decoded = bytearray()
+    # Alphabet base64 modifié
+    base64_charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
+    decoded_bytes = bytearray()
     padding = encoded_data.count('=')
     # Conversion de chaque groupe de 4 caractères base64 en bytes
-    for i in range(0, len(encoded_data), 4):
-        group = encoded_data[i:i+4]
-        num = 0
-        # Conversion des caractères base64 en nombre entier
-        for char in group:
-            num = (num << 6) + base64_charset.index(char)
-        # Conversion du nombre en bytes et suppression du padding
-        for j in range(3):
-            decoded.append((num >> (8 * (2 - j))) & 255)
+    num = 0
+    count = 0
+    for char in encoded_data:
+        # Ignorer les caractères de padding
+        if char == '=':
+            continue
+        # Recherche de l'index du caractère dans l'alphabet base64 modifié
+        char_index = base64_charset.index(char)
+        # Ajout du caractère à la valeur numérique
+        num = (num << 6) + char_index
+        count += 1
+        # Si on a collecté 4 caractères, on décode les bytes
+        if count == 4:
+            decoded_bytes += bytes([(num >> 16) & 255, (num >> 8) & 255, num & 255])
+            num = 0
+            count = 0
     # Retour des données décodées
-    return bytes(decoded[:-padding])
+    return bytes(decoded_bytes[:-padding])

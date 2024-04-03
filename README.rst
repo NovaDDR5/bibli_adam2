@@ -14,6 +14,7 @@ Dans le terminal lance la ligne :
 pip install -i https://test.pypi.org/simple/ bibli-adam-64bit-html==0.0.4
 
 Ensuite rajoute en début de fichier :
+
 import my_package
 from my_package.module1 import encodage_64
 from my_package.module2 import encodage_html
